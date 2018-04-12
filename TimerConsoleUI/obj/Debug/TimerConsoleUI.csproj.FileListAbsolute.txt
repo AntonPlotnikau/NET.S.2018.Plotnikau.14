@@ -1,0 +1,9 @@
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\bin\Debug\TimerConsoleUI.exe.config
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\bin\Debug\TimerConsoleUI.exe
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\bin\Debug\TimerConsoleUI.pdb
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\bin\Debug\Timer.dll
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\bin\Debug\Timer.pdb
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\obj\Debug\TimerConsoleUI.csprojResolveAssemblyReference.cache
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\obj\Debug\TimerConsoleUI.csproj.CoreCompileInputs.cache
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\obj\Debug\TimerConsoleUI.exe
+E:\training\NET.S.2018.Plotnikau.14\TimerConsoleUI\obj\Debug\TimerConsoleUI.pdb

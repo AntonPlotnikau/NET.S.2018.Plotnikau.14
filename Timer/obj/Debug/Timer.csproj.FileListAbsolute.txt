@@ -1,0 +1,6 @@
+E:\training\NET.S.2018.Plotnikau.14\Timer\bin\Debug\Timer.dll
+E:\training\NET.S.2018.Plotnikau.14\Timer\bin\Debug\Timer.pdb
+E:\training\NET.S.2018.Plotnikau.14\Timer\obj\Debug\Timer.csprojResolveAssemblyReference.cache
+E:\training\NET.S.2018.Plotnikau.14\Timer\obj\Debug\Timer.csproj.CoreCompileInputs.cache
+E:\training\NET.S.2018.Plotnikau.14\Timer\obj\Debug\Timer.dll
+E:\training\NET.S.2018.Plotnikau.14\Timer\obj\Debug\Timer.pdb

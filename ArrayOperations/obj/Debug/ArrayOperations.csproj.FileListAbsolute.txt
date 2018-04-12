@@ -1,0 +1,6 @@
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\bin\Debug\ArrayOperations.dll
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\bin\Debug\ArrayOperations.pdb
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\obj\Debug\ArrayOperations.csprojResolveAssemblyReference.cache
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\obj\Debug\ArrayOperations.csproj.CoreCompileInputs.cache
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\obj\Debug\ArrayOperations.dll
+E:\training\NET.S.2018.Plotnikau.14\ArrayOperations\obj\Debug\ArrayOperations.pdb
