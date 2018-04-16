@@ -47,8 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinarySearchTreeTests.cs" />
+    <Compile Include="Book.cs" />
+    <Compile Include="BookComparer.cs" />
+    <Compile Include="IntComparer.cs" />
+    <Compile Include="Point.cs" />
+    <Compile Include="PointComparer.cs" />
     <Compile Include="QueueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

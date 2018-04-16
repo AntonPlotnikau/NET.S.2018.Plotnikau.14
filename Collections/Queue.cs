@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Collections
@@ -7,7 +8,8 @@ namespace Collections
     /// Generic queue
     /// </summary>
     /// <typeparam name="T">type of elements in queue</typeparam>
-    public class Queue<T>
+    /// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
+    public class Queue<T> : IEnumerable<T>
     {
         #region Constant Fields
         /// <summary>
@@ -40,7 +42,7 @@ namespace Collections
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Queue{T}"/> class.
+        /// Initializes a new instance of the <see cref="Queue{T}" /> class.
         /// </summary>
         public Queue()
         {
@@ -48,7 +50,7 @@ namespace Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Queue{T}"/> class.
+        /// Initializes a new instance of the <see cref="Queue{T}" /> class.
         /// </summary>
         /// <param name="values">The values.</param>
         public Queue(IEnumerable<T> values)
@@ -62,7 +64,7 @@ namespace Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Queue{T}"/> class.
+        /// Initializes a new instance of the <see cref="Queue{T}" /> class.
         /// </summary>
         /// <param name="capacity">The capacity.</param>
         /// <exception cref="ArgumentOutOfRangeException">capacity is less than 1</exception>
@@ -85,6 +87,14 @@ namespace Collections
         /// The count of elements in queue.
         /// </value>
         public int Count { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
+        /// <value>
+        /// The version.
+        /// </value>
+        private int Version { get; set; }
         #endregion
 
         #region Public Methods
@@ -110,12 +120,15 @@ namespace Collections
             }
 
             this.Count++;
+            this.Version++;
         }
 
         /// <summary>
         /// Dequeues this instance.
         /// </summary>
-        /// <returns>item that was removed</returns>
+        /// <returns>
+        /// item that was removed
+        /// </returns>
         /// <exception cref="InvalidOperationException">Queue is empty</exception>
         public T Dequeue()
         {
@@ -136,9 +149,173 @@ namespace Collections
             }
 
             this.Count--;
+            this.Version--;
 
             return result;
         }
+        #endregion
+
+        #region IEnumerable<T> interface implementation
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public IEnumerator<T> GetEnumerator()
+            => new Enumerator(this);
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        IEnumerator IEnumerable.GetEnumerator()
+            => this.GetEnumerator();
+
+        #region Struct Enumerator
+        /// <summary>
+        /// Enumerator for iterating
+        /// </summary>
+        /// <seealso cref="System.Collections.Generic.IEnumerable{T}" />
+        private struct Enumerator : IEnumerator<T>
+        {
+            /// <summary>
+            /// The queue
+            /// </summary>
+            private readonly Queue<T> queue;
+
+            /// <summary>
+            /// The version
+            /// </summary>
+            private readonly int version;
+
+            /// <summary>
+            /// The index
+            /// </summary>
+            private int index;
+
+            /// <summary>
+            /// The current element
+            /// </summary>
+            private T currentElement;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Enumerator"/> struct.
+            /// </summary>
+            /// <param name="queue">The queue.</param>
+            /// <exception cref="ArgumentNullException">queue is null</exception>
+            public Enumerator(Queue<T> queue)
+            {
+                this.queue = queue ?? throw new ArgumentNullException(nameof(queue));
+                this.version = queue.Version;
+                this.index = -1;
+                this.currentElement = default(T);
+            }
+
+            /// <summary>
+            /// Gets the current.
+            /// </summary>
+            /// <value>
+            /// The current.
+            /// </value>
+            /// <exception cref="InvalidOperationException">
+            /// Iteration do not started!
+            /// or
+            /// Iteration was ended!
+            /// </exception>
+            public T Current
+            {
+                get
+                {
+                    if (this.index == -1)
+                    {
+                        throw new InvalidOperationException("Iteration do not started!");
+                    }
+
+                    if (this.index == this.queue.Count)
+                    {
+                        throw new InvalidOperationException("Iteration was ended!");
+                    }
+
+                    return this.currentElement;
+                }
+            }
+
+            /// <summary>
+            /// Gets the current.
+            /// </summary>
+            /// <value>
+            /// The current.
+            /// </value>
+            object IEnumerator.Current => this.Current;
+
+            /// <summary>
+            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            /// </summary>
+            public void Dispose() { }
+
+            /// <summary>
+            /// Advances the enumerator to the next element of the collection.
+            /// </summary>
+            /// <returns>
+            ///   <see langword="true" /> if the enumerator was successfully advanced to the next element; <see langword="false" /> if the enumerator has passed the end of the collection.
+            /// </returns>
+            /// <exception cref="InvalidOperationException">Queue was changed!</exception>
+            public bool MoveNext()
+            {
+                if (this.version != this.queue.Version)
+                {
+                    throw new InvalidOperationException("Queue was changed!");
+                }
+
+                bool result;
+
+                if (this.index == -1)
+                {
+                    this.index = 0;
+                    result = this.index >= this.queue.Count - 1;
+
+                    if (result)
+                    {
+                        this.currentElement = this.queue.array[this.index];
+                    }
+
+                    return result;
+                }
+
+                if (this.index == this.queue.Count)
+                {
+                    return false;
+                }
+
+                result = ++this.index >= 0;
+
+                this.currentElement = result ? this.queue.array[this.index] : default(T);
+
+                return result;
+            }
+
+            /// <summary>
+            /// Sets the enumerator to its initial position, which is before the first element in the collection.
+            /// </summary>
+            /// <exception cref="InvalidOperationException">Queue was changed!</exception>
+            public void Reset()
+            {
+                if (this.version != this.queue.Version)
+                {
+                    throw new InvalidOperationException("Queue was changed!");
+                }
+
+                this.index = -1;
+
+                this.currentElement = default(T);
+            }
+        }
+        #endregion
+
         #endregion
 
         #region Private Methods

@@ -4,3 +4,9 @@ E:\training\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.csprojReso
 E:\training\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.csproj.CoreCompileInputs.cache
 E:\training\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.dll
 E:\training\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.pdb
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\bin\Debug\Collections.dll
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\bin\Debug\Collections.pdb
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.csprojResolveAssemblyReference.cache
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.csproj.CoreCompileInputs.cache
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.dll
+E:\Task2\NET.S.2018.Plotnikau.14\Collections\obj\Debug\Collections.pdb

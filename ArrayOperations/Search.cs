@@ -15,12 +15,13 @@ namespace ArrayOperations
         /// <param name="array">The array.</param>
         /// <param name="key">The key.</param>
         /// <param name="comparer">The comparer.</param>
-        /// <returns>index of element that was found</returns>
+        /// <returns>
+        /// index of element that was found
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// array is null
         /// or
-        /// comparer is null
-        /// </exception>
+        /// comparer is null</exception>
         /// <exception cref="ArgumentOutOfRangeException">array length is less than 1</exception>
         public static int BinarySearch<T>(T[] array, T key, IComparer<T> comparer)
         {
@@ -39,7 +40,43 @@ namespace ArrayOperations
                 throw new ArgumentOutOfRangeException(nameof(array));
             }
 
-            return BinarySearch(array, key, 0, array.Length - 1, comparer);
+            return BinarySearch(array, key, 0, array.Length - 1, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Binary search.
+        /// </summary>
+        /// <typeparam name="T">type of array elements</typeparam>
+        /// <param name="array">The array.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="comparison">The comparison delegate.</param>
+        /// <returns>
+        /// index of element that was found
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// array is null
+        /// or
+        /// comparison is null
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">array length is less than 1</exception>
+        public static int BinarySearch<T>(T[] array, T key, Comparison<T> comparison)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            if (comparison == null)
+            {
+                throw new ArgumentNullException(nameof(comparison));
+            }
+
+            if (array.Length < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(array));
+            }
+
+            return BinarySearch(array, key, 0, array.Length - 1, comparison);
         }
 
         /// <summary>
@@ -50,9 +87,11 @@ namespace ArrayOperations
         /// <param name="key">The key.</param>
         /// <param name="left">The left border.</param>
         /// <param name="right">The right border.</param>
-        /// <param name="comparer">The comparer.</param>
-        /// <returns>index of element that was found</returns>
-        private static int BinarySearch<T>(T[] array, T key, int left, int right, IComparer<T> comparer)
+        /// <param name="comparison">The comparison.</param>
+        /// <returns>
+        /// index of element that was found
+        /// </returns>
+        private static int BinarySearch<T>(T[] array, T key, int left, int right, Comparison<T> comparison)
         {
             if (right < left)
             {
@@ -61,14 +100,14 @@ namespace ArrayOperations
 
             int middle = left + ((right - left) / 2);
 
-            if (comparer.Compare(array[middle], key) < 0) 
+            if (comparison(array[middle], key) < 0) 
             {
-                return BinarySearch(array, key, middle + 1, right, comparer);
+                return BinarySearch(array, key, middle + 1, right, comparison);
             }
 
-            if (comparer.Compare(array[middle], key) > 0) 
+            if (comparison(array[middle], key) > 0) 
             {
-                return BinarySearch(array, key, left, middle - 1, comparer);
+                return BinarySearch(array, key, left, middle - 1, comparison);
             }
 
             return middle;
